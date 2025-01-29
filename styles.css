@@ -1,0 +1,422 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Manrope', sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: black;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 64px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-links {
+    display: flex;
+    margin-right: auto;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    margin-right: 1.5rem;
+    padding: 0.5rem;
+}
+
+.nav-links a.active {
+    color: #6c63ff;
+}
+
+.nav-icons i {
+    margin-left: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* Main Container Styles */
+.main-container {
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+    height: calc(100vh - 64px);
+}
+
+/* Left Panel Styles */
+.left-panel {
+    flex: 1;
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.specialization-input {
+    margin: 0.5rem 0;
+}
+
+.specialization-input .input-with-icon {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.specialization-input input {
+    width: 100%;
+    padding: 0.6rem;
+    padding-left: 2.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.dropbox-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #0061FF;
+    pointer-events: none;
+    font-size: 1.1rem;
+}
+
+.recommendation-btn {
+    background-color: #6c63ff;
+    color: white;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.recommendation-btn i {
+    font-size: 1.1rem;
+}
+
+/* Calendar Styles */
+.calendar {
+    margin-top: 1rem;
+    background: white;
+    border-radius: 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+}
+
+.calendar-header h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.calendar-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    padding: 0.25rem 0.5rem;
+}
+
+.calendar-header button:hover {
+    color: #333;
+}
+
+.calendar-grid {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.calendar-row {
+    display: grid;
+    grid-template-columns: 45px repeat(5, 1fr);
+    border-bottom: 1px solid #eee;
+}
+
+.calendar-row > div {
+    padding: 0.25rem;
+    min-height: 40px;
+    border-right: 1px solid #eee;
+    font-size: 0.8rem;
+    color: #666;
+    position: relative;
+}
+
+.calendar-row > div:first-child {
+    padding-right: 0.5rem;
+    text-align: right;
+    font-size: 0.7rem;
+    color: #999;
+}
+
+.calendar-cell {
+    position: relative;
+}
+
+.course-block {
+    position: absolute;
+    top: 0;
+    left: 2px;
+    right: 2px;
+    margin: 2px;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    z-index: 1;
+}
+
+.course-block.me101 {
+    background-color: rgba(144, 238, 144, 0.3);
+    border: 1px solid rgba(144, 238, 144, 0.5);
+}
+
+.course-block.engr15 {
+    background-color: rgba(255, 218, 185, 0.3);
+    border: 1px solid rgba(255, 218, 185, 0.5);
+}
+
+.course-block.phil60 {
+    background-color: rgba(230, 230, 250, 0.3);
+    border: 1px solid rgba(230, 230, 250, 0.5);
+}
+
+/* Chat Window Styles */
+.chat-window {
+    flex: 2;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.chat-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 2rem;  /* Changed from 2rem to 4rem to move content down */
+    gap: 1rem;
+    transition: opacity 0.3s ease-out;
+}
+
+.athena-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #f5f5f5;
+}
+
+.chat-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: white;
+}
+
+.suggestion-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    padding: 1rem;
+    transition: opacity 0.3s ease-out;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Center vertically in the chat window */
+    margin: auto;
+    max-width: 900px; /* Adjust based on your needs */
+}
+
+.suggestion-btn {
+    background: #f5f5f5;
+    border: none;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.suggestion-btn:hover {
+    background: #eee;
+}
+
+/* Add this to center the initial Athena content */
+.chat-messages:not(:has(.message)) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.message.user {
+    background-color: #f9fafb;
+    margin: 0 -2rem;
+    padding: 1rem 2rem;
+}
+
+.message.ai {
+    margin: 0 -2rem;
+    padding: 1rem 2rem;
+}
+
+.message .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.message.user .avatar {
+    background-color: #000;
+}
+
+.message.ai .avatar {
+    background-color: #666;
+}
+
+.message p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+    max-width: 90%;
+}
+
+.chat-input {
+    border-top: 1px solid #e5e7eb;
+    padding: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    background: white;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    background: white;
+}
+
+.chat-input input:focus {
+    outline: none;
+    border-color: #6c63ff;
+}
+
+.input-btn {
+    background: none;
+    border: none;
+    color: #666;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.input-btn:hover {
+    color: #333;
+}
+
+.send-btn {
+    background: none;
+    border: none;
+    color: #6c63ff;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.send-btn:hover {
+    color: #5b53e0;
+}
+
+.typing-indicator {
+    padding: 1rem 1.2rem;
+    display: flex;
+    gap: 0.3rem;
+    width: fit-content;
+}
+
+.typing-indicator span {
+    width: 6px;
+    height: 6px;
+    background: #666;
+    border-radius: 50%;
+    animation: bounce 1.3s infinite;
+}
+
+.typing-indicator span:nth-child(2) { 
+    animation-delay: 0.15s; 
+}
+
+.typing-indicator span:nth-child(3) { 
+    animation-delay: 0.3s; 
+}
+
+@keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-4px); }
+}
