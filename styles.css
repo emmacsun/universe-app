@@ -420,3 +420,19 @@ body {
     0%, 60%, 100% { transform: translateY(0); }
     30% { transform: translateY(-4px); }
 }
+
+/* Add styles for the Flowise chatbot container */
+flowise-fullchatbot {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Add styles to ensure chat messages stay contained */
+flowise-fullchatbot::part(message),
+flowise-fullchatbot::part(bot-message),
+flowise-fullchatbot::part(user-message) {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
