@@ -1,8 +1,12 @@
 // Calendar Generation
-function generateCalendar() {
+
+function generateCalendar(courses = []) {
     const calendarGrid = document.querySelector('.calendar-grid');
     const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
     const timeSlots = ['8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM'];
+
+    // Clear existing calendar if any
+    calendarGrid.innerHTML = '';
 
     // Create header row
     const headerRow = document.createElement('div');
@@ -12,6 +16,7 @@ function generateCalendar() {
     daysOfWeek.forEach(day => {
         headerRow.innerHTML += `<div>${day}</div>`;
     });
+
     
     calendarGrid.appendChild(headerRow);
 
@@ -28,14 +33,18 @@ function generateCalendar() {
         calendarGrid.appendChild(row);
     });
 
-    // Add course blocks
-    addCourseBlock('ME 101', 'me101', 'Mon', '11 AM', 2);
-    addCourseBlock('ME 101', 'me101', 'Wed', '11 AM', 2);
-    addCourseBlock('ENGR 15', 'engr15', 'Mon', '2 PM', 2);
-    addCourseBlock('ENGR 15', 'engr15', 'Wed', '2 PM', 2);
-    addCourseBlock('PHIL 60', 'phil60', 'Mon', '4 PM', 2);
-    addCourseBlock('PHIL 60', 'phil60', 'Wed', '4 PM', 2);
-    addCourseBlock('PHIL 60', 'phil60', 'Fri', '1 PM', 1);
+    // Replace hardcoded course blocks with dynamic course data
+    courses.forEach(course => {
+        course.schedule.forEach(slot => {
+            addCourseBlock(
+                course.name,
+                course.classCode,  // This should be a URL-safe class code for CSS
+                slot.day,
+                slot.startTime,
+                slot.duration
+            );
+        });
+    });
 }
 
 function addCourseBlock(courseName, courseClass, day, startTime, duration) {
@@ -95,23 +104,48 @@ class ChatWindow {
         const message = this.chatInput.value.trim();
         if (!message) return;
 
-        // Remove initial UI if this is the first message
         if (!this.hasStartedChat) {
             this.transitionToChatInterface();
         }
 
-        // Add user message to chat
         this.addMessageToChat('user', message);
         this.chatInput.value = '';
-
-        // Simulate typing indicator
         this.showTypingIndicator();
 
-        // Simulate AI response (replace this with actual API call)
-        setTimeout(() => {
+        // Here we'll process the LLM response and update the calendar
+        try {
+            const aiResponse = await this.getAIResponse(message);
             this.removeTypingIndicator();
-            this.addMessageToChat('ai', this.generateAIResponse(message));
-        }, 1500);
+            this.addMessageToChat('ai', aiResponse.message);
+            
+            // Update calendar if courses are provided
+            if (aiResponse.courses && Array.isArray(aiResponse.courses)) {
+                generateCalendar(aiResponse.courses);
+            }
+        } catch (error) {
+            console.error('Error processing message:', error);
+            this.removeTypingIndicator();
+            this.addMessageToChat('ai', 'Sorry, I encountered an error processing your request.');
+        }
+    }
+
+    async getAIResponse(message) {
+        // Replace this with your actual LLM API call
+        // Example response format:
+        return {
+            message: "I've updated your schedule with those courses.",
+            courses: [
+                {
+                    name: "ME 101",
+                    classCode: "me101",
+                    schedule: [
+                        { day: "Mon", startTime: "11 AM", duration: 2 },
+                        { day: "Wed", startTime: "11 AM", duration: 2 }
+                    ]
+                },
+                // ... more courses ...
+            ]
+        };
     }
 
     transitionToChatInterface() {
@@ -169,22 +203,10 @@ class ChatWindow {
             typingIndicator.remove();
         }
     }
-
-    generateAIResponse(message) {
-        // This is a simple response generator - replace with actual AI integration
-        const responses = [
-            "Based on your course requirements, I recommend taking ME 101 and ENGR 15 together.",
-            "That's a good question about your schedule. Let me help you with that.",
-            "I can help you plan your course load for the upcoming quarter.",
-            "Would you like me to explain the prerequisites for this course?",
-            "I can show you the typical course sequence for your major."
-        ];
-        return responses[Math.floor(Math.random() * responses.length)];
-    }
 }
 
-// Initialize both calendar and chat when document loads
+// Update initialization
 document.addEventListener('DOMContentLoaded', () => {
-    generateCalendar();
+    generateCalendar();  // Initial empty calendar
     const chat = new ChatWindow();
 }); 
