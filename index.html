@@ -59,33 +59,14 @@
 
         <!-- Right Side - Chat Window -->
         <div class="chat-window">
-            <div class="chat-header">
-                <img src="athena-logo.png" alt="Athena Logo" class="athena-logo">
-                <h2>Ask Athena</h2>
-            </div>
-            <div class="chat-messages">
-                <div class="suggestion-buttons">
-                    <button class="suggestion-btn">What classes should I take next quarter for my major?</button>
-                    <button class="suggestion-btn">Which courses fulfill my WAYS requirements?</button>
-                    <button class="suggestion-btn">Can you help me plan my schedule around volleyball practice?</button>
-                    <button class="suggestion-btn">Can you explain the credit requirements for my major?</button>
-                </div>
-            </div>
-            <div class="chat-input">
-                <button class="input-btn add-btn">
-                    <i class="fas fa-plus"></i>
-                </button>
-                <button class="input-btn image-btn">
-                    <i class="far fa-image"></i>
-                </button>
-                <button class="input-btn mic-btn">
-                    <i class="fas fa-microphone"></i>
-                </button>
-                <input type="text" placeholder="Message Athena">
-                <button class="send-btn">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
+            <flowise-fullchatbot></flowise-fullchatbot>
+            <script type="module">
+                import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+                Chatbot.initFull({
+                    chatflowid: "b45b60d8-e6a3-4b29-99d4-0a2bd3537d6f",
+                    apiHost: "https://universev1.onrender.com",
+                })
+            </script>
         </div>
     </div>
     <script src="script.js"></script>
